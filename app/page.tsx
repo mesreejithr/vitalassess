@@ -39,8 +39,8 @@ export default function Home() {
             <Button href="/contact" size="lg">
               Request Demo
             </Button>
-            <Button href="/contact" variant="outline" size="lg">
-              View Sample Report
+            <Button href="/free-assessment" variant="outline" size="lg">
+              Free Assessment for Candidates
             </Button>
           </div>
         </div>
@@ -501,7 +501,24 @@ export default function Home() {
           </div>
       </Section>
 
-      {/* 13. Final CTA */}
+      {/* 13. Candidate CTA */}
+      <Section id="candidate-cta" className="py-20">
+        <div className="max-w-4xl mx-auto">
+          <Card padding="lg" className="text-center bg-gradient-to-br from-primary/5 to-primary/10 border-2 border-primary/20">
+            <h2 className="text-4xl font-bold text-dark mb-4">
+              Are You a Candidate?
+            </h2>
+            <p className="text-xl text-gray-medium mb-6 max-w-2xl mx-auto">
+              Take our free assessment and discover your strengths. Get instant insights into your skills and receive a personalized report.
+            </p>
+            <Button href="/free-assessment" size="lg">
+              Register for Free Assessment
+            </Button>
+          </Card>
+        </div>
+      </Section>
+
+      {/* 14. Final CTA */}
       <Section id="cta" className="py-20">
         <div className="bg-primary rounded-2xl p-12 md:p-16 text-center text-white">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">

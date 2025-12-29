@@ -164,6 +164,9 @@ export default function Header() {
 
           {/* Desktop CTA Buttons */}
           <div className="hidden lg:flex items-center gap-4">
+            <Button href="/free-assessment" variant="ghost" size="sm">
+              Free Assessment
+            </Button>
             <Button href="/contact" size="sm">
               Request Demo
             </Button>
@@ -253,6 +256,9 @@ export default function Header() {
                 </>
               )}
               <div className="flex flex-col gap-3 pt-4 border-t border-gray-200">
+                <Button href="/free-assessment" variant="ghost" size="md" className="w-full">
+                  Free Assessment
+                </Button>
                 <Button href="/contact" size="md" className="w-full">
                   Request Demo
                 </Button>

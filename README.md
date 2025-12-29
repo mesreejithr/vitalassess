@@ -8,6 +8,7 @@ A premium SaaS landing website built with Next.js 14 (App Router), TypeScript, a
 - **TypeScript** - Type-safe development
 - **Tailwind CSS** - Utility-first CSS framework
 - **React 18** - UI library
+- **Supabase** - PostgreSQL database for candidate registrations
 
 ## Project Structure
 
@@ -47,12 +48,28 @@ Vitalassess/
 npm install
 ```
 
-2. Run the development server:
+2. Set up Supabase database:
+   - Follow the guide in [docs/SUPABASE_SETUP.md](docs/SUPABASE_SETUP.md)
+   - Create a `.env.local` file with your Supabase credentials (see [ENV_SETUP.md](ENV_SETUP.md))
+
+3. Run the development server:
 ```bash
 npm run dev
 ```
 
-3. Open [http://localhost:3000](http://localhost:3000) in your browser.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Database Setup (Required for Vercel)
+
+Since this app is designed for Vercel deployment, it uses **Supabase** (PostgreSQL) instead of file storage. 
+
+**Quick Setup:**
+1. Create a free Supabase account at [supabase.com](https://supabase.com)
+2. Run the SQL migration: `docs/supabase-migration.sql`
+3. Add environment variables (see [ENV_SETUP.md](ENV_SETUP.md))
+4. Done! Your app will work on Vercel.
+
+See [docs/SUPABASE_SETUP.md](docs/SUPABASE_SETUP.md) for detailed instructions.
 
 ## Design System
 
@@ -67,6 +84,8 @@ npm run dev
 - `/pricing` - Pricing plans (Starter, Professional, Enterprise)
 - `/case-studies` - Customer success stories
 - `/contact` - Contact form and information
+- `/free-assessment` - Candidate registration for free assessments
+- `/admin/candidates` - Admin view of all candidate registrations
 
 ## Components
 
