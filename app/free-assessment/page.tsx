@@ -81,6 +81,13 @@ export default function FreeAssessment() {
           if (response.status === 409) {
             // Duplicate email
             setErrors({ email: result.error })
+          } else if (response.status === 500) {
+            // Server error - show user-friendly message
+            const errorMessage = result.details 
+              ? `${result.error}. ${result.details}`
+              : result.error || 'Server error. Please try again later or contact support.'
+            setErrors({ email: errorMessage })
+            console.error('Server error:', result)
           } else {
             setErrors({ email: result.error || 'Failed to submit form. Please try again.' })
           }

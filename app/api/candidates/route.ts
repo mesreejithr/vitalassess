@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { supabase } from '@/lib/supabase'
+import { supabase, isSupabaseConfigured } from '@/lib/supabase'
 
 interface CandidateData {
   name: string
@@ -9,6 +9,23 @@ interface CandidateData {
 
 export async function POST(request: NextRequest) {
   try {
+    // Check if Supabase is properly configured
+    if (!isSupabaseConfigured()) {
+      console.error('Supabase is not properly configured')
+      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+      const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+      
+      return NextResponse.json(
+        { 
+          error: 'Server configuration error. Please contact support.',
+          details: !supabaseUrl || !supabaseAnonKey 
+            ? 'Supabase environment variables are missing. Please configure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in Vercel.'
+            : 'Supabase credentials are invalid or not properly configured.'
+        },
+        { status: 500 }
+      )
+    }
+
     const body: CandidateData = await request.json()
     const { name, email, mobile } = body
 
@@ -39,11 +56,29 @@ export async function POST(request: NextRequest) {
     }
 
     // Check for duplicate email
-    const { data: existingCandidate } = await supabase
+    const { data: existingCandidate, error: checkError } = await supabase
       .from('candidates')
       .select('email')
       .eq('email', email.toLowerCase().trim())
-      .single()
+      .maybeSingle()
+
+    if (checkError) {
+      console.error('Supabase check error:', checkError)
+      // If it's a table not found error, provide helpful message
+      if (checkError.code === 'PGRST116' || checkError.message?.includes('relation') || checkError.message?.includes('does not exist')) {
+        return NextResponse.json(
+          { 
+            error: 'Database not configured. Please contact support.',
+            details: 'Table does not exist. Run the migration script in Supabase.'
+          },
+          { status: 500 }
+        )
+      }
+      return NextResponse.json(
+        { error: 'Failed to check registration. Please try again.' },
+        { status: 500 }
+      )
+    }
 
     if (existingCandidate) {
       return NextResponse.json(
@@ -66,8 +101,46 @@ export async function POST(request: NextRequest) {
 
     if (insertError) {
       console.error('Supabase insert error:', insertError)
+      console.error('Error details:', {
+        code: insertError.code,
+        message: insertError.message,
+        details: insertError.details,
+        hint: insertError.hint,
+      })
+
+      // Provide more specific error messages
+      if (insertError.code === 'PGRST116' || insertError.message?.includes('relation') || insertError.message?.includes('does not exist')) {
+        return NextResponse.json(
+          { 
+            error: 'Database not configured. Please contact support.',
+            details: 'Table does not exist. Run the migration script in Supabase.'
+          },
+          { status: 500 }
+        )
+      }
+
+      if (insertError.code === '42501' || insertError.message?.includes('permission denied') || insertError.message?.includes('row-level security')) {
+        return NextResponse.json(
+          { 
+            error: 'Database permission error. Please contact support.',
+            details: 'Row Level Security policy issue. Check Supabase policies.'
+          },
+          { status: 500 }
+        )
+      }
+
+      if (insertError.code === '23505' || insertError.message?.includes('duplicate key')) {
+        return NextResponse.json(
+          { error: 'This email is already registered' },
+          { status: 409 }
+        )
+      }
+
       return NextResponse.json(
-        { error: 'Failed to save registration. Please try again.' },
+        { 
+          error: 'Failed to save registration. Please try again.',
+          details: insertError.message || 'Unknown database error'
+        },
         { status: 500 }
       )
     }
