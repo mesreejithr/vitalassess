@@ -397,20 +397,21 @@ export default function Home() {
               Pricing
             </h2>
             <p className="text-lg text-gray-medium max-w-2xl mx-auto">
-              Transparent pricing based on assessment volume and feature requirements
+              Transparent pricing based on assessment volume and feature requirements. 
+              Start with pay-as-you-go or scale with volume plans for better value.
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             <Card className="text-center">
-              <h3 className="text-2xl font-bold text-dark mb-2">Starter</h3>
+              <h3 className="text-2xl font-bold text-dark mb-2">Pay-as-you-go</h3>
               <div className="my-6">
-                <span className="text-4xl font-bold text-dark">₹8,000</span>
-                <span className="text-gray-medium">/month</span>
+                <span className="text-4xl font-bold text-dark">₹299</span>
+                <span className="text-gray-medium">/assessment</span>
               </div>
               <ul className="text-left space-y-2 mb-8 text-gray-medium text-sm">
-                <li>✓ Up to 100 assessments/month</li>
-                <li>✓ AI question generation</li>
-                <li>✓ Basic proctoring</li>
+                <li>✓ AI-generated questions</li>
+                <li>✓ Basic AI proctoring</li>
+                <li>✓ Auto-scored results</li>
                 <li>✓ Email support</li>
               </ul>
               <Button href="/contact" variant="outline" className="w-full">
@@ -419,19 +420,21 @@ export default function Home() {
             </Card>
             <Card className="text-center border-2 border-primary relative">
               <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-primary text-white px-4 py-1 rounded-full text-sm font-semibold">
-                Popular
+                Most Popular
               </div>
-              <h3 className="text-2xl font-bold text-dark mb-2">Professional</h3>
+              <h3 className="text-2xl font-bold text-dark mb-2">Growth</h3>
               <div className="my-6">
-                <span className="text-4xl font-bold text-dark">₹25,000</span>
-                <span className="text-gray-medium">/month</span>
+                <span className="text-4xl font-bold text-dark">₹149</span>
+                <span className="text-gray-medium">/assessment</span>
               </div>
+              <div className="text-sm text-gray-medium mb-2">Minimum 50 assessments/month</div>
+              <div className="text-sm text-primary font-semibold mb-4">Costs ~50% less than Pay-as-you-go</div>
               <ul className="text-left space-y-2 mb-8 text-gray-medium text-sm">
-                <li>✓ Up to 500 assessments/month</li>
                 <li>✓ Advanced AI proctoring</li>
                 <li>✓ Video interview integration</li>
                 <li>✓ Real-time analytics</li>
                 <li>✓ Priority support</li>
+                <li>✓ ATS integrations</li>
               </ul>
               <Button href="/contact" className="w-full">
                 Get Started
@@ -442,6 +445,7 @@ export default function Home() {
               <div className="my-6">
                 <span className="text-4xl font-bold text-dark">Custom</span>
               </div>
+              <div className="text-sm text-gray-medium mb-4">Volume pricing available</div>
               <ul className="text-left space-y-2 mb-8 text-gray-medium text-sm">
                 <li>✓ Unlimited assessments</li>
                 <li>✓ White-label branding</li>

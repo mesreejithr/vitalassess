@@ -35,7 +35,7 @@ export default function StructuredData() {
     operatingSystem: 'Web',
     offers: {
       '@type': 'Offer',
-      price: '499',
+      price: '299',
       priceCurrency: 'INR',
     },
     description: 'AI-powered hiring intelligence platform that provides AI-generated assessments, secure proctoring, instant ranking, and role-fit insights for efficient candidate evaluation.',

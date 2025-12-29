@@ -7,7 +7,7 @@ import FaqAccordion from '@/components/ui/FaqAccordion'
 
 export const metadata: Metadata = {
   title: 'Pricing - Simple, Transparent Plans',
-  description: 'Choose the right plan for your hiring needs. Pay-as-you-go, Growth, and Enterprise plans with volume pricing available. Transparent pricing starting at ₹499 per assessment.',
+  description: 'Choose the right plan for your hiring needs. Pay-as-you-go, Growth, and Enterprise plans with volume pricing available. Transparent pricing starting at ₹299 per assessment.',
   openGraph: {
     title: 'VitalAssess Pricing - Simple, Transparent Plans',
     description: 'Choose the right plan for your hiring needs. Pay-as-you-go, Growth, and Enterprise plans with volume pricing available.',
@@ -47,7 +47,7 @@ export default function Pricing() {
               <Badge variant="subtle" className="mb-4">Best for occasional hiring</Badge>
               <div className="my-6">
                 <div className="text-4xl font-bold text-dark mb-2">Starts at</div>
-                <div className="text-5xl font-bold text-primary">₹499</div>
+                <div className="text-5xl font-bold text-primary">₹299</div>
                 <div className="text-gray-medium mt-2">per assessment</div>
               </div>
               <div className="text-left mb-8">
@@ -93,9 +93,10 @@ export default function Pricing() {
               <Badge variant="primary" className="mb-4">Best for growing teams</Badge>
               <div className="my-6">
                 <div className="text-4xl font-bold text-dark mb-2">Starts at</div>
-                <div className="text-5xl font-bold text-primary">₹299</div>
+                <div className="text-5xl font-bold text-primary">₹149</div>
                 <div className="text-gray-medium mt-2">per assessment</div>
                 <div className="text-sm text-gray-medium mt-3">Minimum 50 assessments/month</div>
+                <div className="text-sm text-primary font-semibold mt-2">Costs ~50% less than Pay-as-you-go</div>
               </div>
               <div className="text-left mb-8">
                 <div className="font-semibold text-dark mb-3">Everything in Pay-as-you-go, plus:</div>
@@ -229,7 +230,7 @@ export default function Pricing() {
                 },
                 {
                   question: 'What happens if I exceed my plan limits?',
-                  answer: 'For Growth and Enterprise plans, additional assessments beyond your monthly limit are charged at the pay-as-you-go rate (₹499 per assessment). You can also upgrade your plan mid-cycle to accommodate higher volumes. We\'ll notify you when you\'re approaching your limit.'
+                  answer: 'For Growth and Enterprise plans, additional assessments beyond your monthly limit are charged at the pay-as-you-go rate (₹299 per assessment). You can also upgrade your plan mid-cycle to accommodate higher volumes. We\'ll notify you when you\'re approaching your limit.'
                 },
                 {
                   question: 'Are there setup fees or hidden costs?',
