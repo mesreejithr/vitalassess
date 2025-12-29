@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import Button from '@/components/ui/Button'
@@ -104,10 +105,17 @@ export default function Header() {
           {/* Logo */}
           <Link
             href="/"
-            className="text-2xl font-bold text-primary hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded"
+            className="hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded"
             aria-label="VitalAssess Home"
           >
-            VitalAssess
+            <Image
+              src="/logo.png"
+              alt="VitalAssess Logo"
+              width={180}
+              height={50}
+              priority
+              className="h-auto w-auto"
+            />
           </Link>
 
           {/* Desktop Navigation */}
