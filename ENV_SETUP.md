@@ -20,10 +20,17 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 
 ## For Vercel Deployment
 
-1. Go to your Vercel project dashboard
-2. Navigate to **Settings** → **Environment Variables**
-3. Add both variables for **Production**, **Preview**, and **Development**
-4. Redeploy your application
+**⚠️ IMPORTANT**: If you're seeing "Server configuration error" on your Vercel site, follow these steps:
+
+1. Go to your Vercel project dashboard: [https://vercel.com/dashboard](https://vercel.com/dashboard)
+2. Click on your project → **Settings** → **Environment Variables**
+3. Add both variables:
+   - **Name**: `NEXT_PUBLIC_SUPABASE_URL` → **Value**: Your Supabase Project URL
+   - **Name**: `NEXT_PUBLIC_SUPABASE_ANON_KEY` → **Value**: Your Supabase anon key
+4. **CRITICAL**: Check all three environments (Production, Preview, Development) for each variable
+5. **MUST REDEPLOY**: After adding variables, go to **Deployments** → Click "..." → **Redeploy**
+
+**📖 Detailed step-by-step guide**: See [docs/VERCEL_ENV_SETUP.md](docs/VERCEL_ENV_SETUP.md)
 
 ## Example
 
