@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import Button from '@/components/ui/Button'
 import Card from '@/components/ui/Card'
 import Section from '@/components/ui/Section'
+import { supabase, isSupabaseConfigured } from '@/lib/supabase'
 
 interface FormData {
   email: string
@@ -57,23 +58,22 @@ export default function Login() {
     setErrors({})
 
     try {
-      // TODO: Integrate with Supabase authentication
-      // Example:
-      // const { data, error } = await supabase.auth.signInWithPassword({
-      //   email: formData.email,
-      //   password: formData.password,
-      // })
-      // if (error) throw error
-      // router.push('/admin/candidates')
+      // Check if Supabase is configured
+      if (!isSupabaseConfigured()) {
+        throw new Error('Authentication service is not properly configured. Please contact support.')
+      }
 
-      // Mock authentication for now
-      console.log('Login attempt:', { email: formData.email })
-      
-      // Simulate API call delay
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      // Sign in with Supabase
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: formData.email,
+        password: formData.password,
+      })
 
-      // For now, redirect to admin page (you can change this based on user role)
-      // In production, check authentication status first
+      if (error) {
+        throw error
+      }
+
+      // Successfully authenticated - redirect to admin page
       router.push('/admin/candidates')
     } catch (error: any) {
       console.error('Login error:', error)

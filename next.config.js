@@ -1,11 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Performance optimizations
-  compress: true,
-  poweredByHeader: false,
-  // Image optimization
+  output: 'export',
   images: {
-    formats: ['image/avif', 'image/webp'],
+    unoptimized: true,
   },
 }
 

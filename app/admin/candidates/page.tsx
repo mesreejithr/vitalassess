@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Card from '@/components/ui/Card'
 import Section from '@/components/ui/Section'
 import Button from '@/components/ui/Button'
+import { supabase, isSupabaseConfigured } from '@/lib/supabase'
 
 interface Candidate {
   id: string
@@ -18,23 +19,63 @@ export default function CandidatesAdmin() {
   const [candidates, setCandidates] = useState<Candidate[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null)
 
   useEffect(() => {
-    fetchCandidates()
+    checkAuth()
   }, [])
+
+  const checkAuth = async () => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession()
+      if (session) {
+        setIsAuthenticated(true)
+        fetchCandidates()
+      } else {
+        setIsAuthenticated(false)
+        // Redirect to login if not authenticated
+        if (typeof window !== 'undefined') {
+          window.location.href = '/login'
+        }
+      }
+    } catch (err) {
+      console.error('Auth check error:', err)
+      setIsAuthenticated(false)
+      if (typeof window !== 'undefined') {
+        window.location.href = '/login'
+      }
+    }
+  }
 
   const fetchCandidates = async () => {
     try {
       setLoading(true)
-      const response = await fetch('/api/candidates')
-      if (!response.ok) {
-        throw new Error('Failed to fetch candidates')
-      }
-      const data = await response.json()
-      setCandidates(data.candidates || [])
       setError(null)
-    } catch (err) {
-      setError('Failed to load candidates. Please try again.')
+
+      // Check if Supabase is configured
+      if (!isSupabaseConfigured()) {
+        throw new Error('Service is not properly configured. Please contact support.')
+      }
+
+      // Fetch candidates from database
+      const { data: candidates, error: fetchError } = await supabase
+        .from('candidates')
+        .select('*')
+        .order('created_at', { ascending: false })
+
+      if (fetchError) {
+        console.error('Supabase fetch error:', fetchError)
+        if (fetchError.code === 'PGRST116' || fetchError.message?.includes('relation') || fetchError.message?.includes('does not exist')) {
+          setError('Database not configured. Please contact support.')
+        } else {
+          setError('Failed to load candidates. Please try again.')
+        }
+        return
+      }
+
+      setCandidates(candidates || [])
+    } catch (err: any) {
+      setError(err?.message || 'Failed to load candidates. Please try again.')
       console.error('Error fetching candidates:', err)
     } finally {
       setLoading(false)
@@ -72,6 +113,24 @@ export default function CandidatesAdmin() {
     a.download = `candidates_${new Date().toISOString().split('T')[0]}.csv`
     a.click()
     window.URL.revokeObjectURL(url)
+  }
+
+  // Show loading while checking authentication
+  if (isAuthenticated === null) {
+    return (
+      <Section className="py-20">
+        <div className="max-w-6xl mx-auto">
+          <Card padding="lg" className="text-center">
+            <p className="text-gray-medium">Checking authentication...</p>
+          </Card>
+        </div>
+      </Section>
+    )
+  }
+
+  // Don't render if not authenticated (will redirect)
+  if (!isAuthenticated) {
+    return null
   }
 
   return (

@@ -4,6 +4,7 @@ import { useState, FormEvent } from 'react'
 import Button from '@/components/ui/Button'
 import Card from '@/components/ui/Card'
 import Section from '@/components/ui/Section'
+import { supabase, isSupabaseConfigured } from '@/lib/supabase'
 
 interface FormData {
   name: string
@@ -65,34 +66,65 @@ export default function FreeAssessment() {
     setIsSubmitting(true)
 
     try {
-      const response = await fetch('/api/candidates', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      })
+      // Check if Supabase is configured
+      if (!isSupabaseConfigured()) {
+        throw new Error('Service is not properly configured. Please contact support.')
+      }
 
-      const result = await response.json()
+      const { name, email, mobile } = formData
 
-      if (!response.ok) {
-        // Handle specific error messages from API
-        if (result.error) {
-          if (response.status === 409) {
-            // Duplicate email
-            setErrors({ email: result.error })
-          } else if (response.status === 500) {
-            // Server error - show user-friendly message
-            const errorMessage = result.details 
-              ? `${result.error}. ${result.details}`
-              : result.error || 'Server error. Please try again later or contact support.'
-            setErrors({ email: errorMessage })
-            console.error('Server error:', result)
-          } else {
-            setErrors({ email: result.error || 'Failed to submit form. Please try again.' })
-          }
+      // Validate mobile format
+      const mobileDigits = mobile.replace(/[^0-9]/g, '')
+      if (mobileDigits.length < 10) {
+        setErrors({ mobile: 'Invalid mobile number' })
+        return
+      }
+
+      // Check for duplicate email
+      const { data: existingCandidate, error: checkError } = await supabase
+        .from('candidates')
+        .select('email')
+        .eq('email', email.toLowerCase().trim())
+        .maybeSingle()
+
+      if (checkError) {
+        console.error('Supabase check error:', checkError)
+        if (checkError.code === 'PGRST116' || checkError.message?.includes('relation') || checkError.message?.includes('does not exist')) {
+          setErrors({ email: 'Database not configured. Please contact support.' })
         } else {
-          throw new Error('Failed to submit form')
+          setErrors({ email: 'Failed to check registration. Please try again.' })
+        }
+        return
+      }
+
+      if (existingCandidate) {
+        setErrors({ email: 'This email is already registered' })
+        return
+      }
+
+      // Insert candidate into database
+      const { data: candidate, error: insertError } = await supabase
+        .from('candidates')
+        .insert({
+          name: name.trim(),
+          email: email.toLowerCase().trim(),
+          mobile: mobile.trim(),
+          mobile_digits: mobileDigits,
+        })
+        .select()
+        .single()
+
+      if (insertError) {
+        console.error('Supabase insert error:', insertError)
+        
+        if (insertError.code === 'PGRST116' || insertError.message?.includes('relation') || insertError.message?.includes('does not exist')) {
+          setErrors({ email: 'Database not configured. Please contact support.' })
+        } else if (insertError.code === '42501' || insertError.message?.includes('permission denied') || insertError.message?.includes('row-level security')) {
+          setErrors({ email: 'Database permission error. Please contact support.' })
+        } else if (insertError.code === '23505' || insertError.message?.includes('duplicate key')) {
+          setErrors({ email: 'This email is already registered' })
+        } else {
+          setErrors({ email: 'Failed to save registration. Please try again.' })
         }
         return
       }
@@ -110,10 +142,10 @@ export default function FreeAssessment() {
       setTimeout(() => {
         setSubmitSuccess(false)
       }, 5000)
-    } catch (error) {
+    } catch (error: any) {
       console.error('Form submission error:', error)
       setErrors({
-        email: 'Something went wrong. Please try again later.',
+        email: error?.message || 'Something went wrong. Please try again later.',
       })
     } finally {
       setIsSubmitting(false)

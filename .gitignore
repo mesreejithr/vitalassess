@@ -37,3 +37,4 @@ next-env.d.ts
 # data files (contains candidate registrations)
 /data/candidates.json
 
+.env
