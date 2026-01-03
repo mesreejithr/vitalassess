@@ -276,10 +276,10 @@ export default function Contact() {
                         Email
                       </h3>
                       <a
-                        href="mailto:mail@vitalassess.com"
+                        href="mailto:admin@vitalassess.in"
                         className="text-dark hover:text-primary transition-colors"
                       >
-                        mail@vitalassess.com
+                        admin@vitalassess.in
                       </a>
                     </div>
 
@@ -288,10 +288,10 @@ export default function Contact() {
                         Phone
                       </h3>
                       <a
-                        href="tel:9744824525"
+                        href="tel:9778231254"
                         className="text-dark hover:text-primary transition-colors"
                       >
-                        9744824525
+                        97782 31254
                       </a>
                     </div>
 
@@ -300,10 +300,8 @@ export default function Contact() {
                         Address
                       </h3>
                       <address className="text-dark not-italic leading-relaxed">
-                        67/A, Residents Ln, Edappally<br />
-                        Ernakulam, Kochi<br />
-                        Kerala 682024<br />
-                        India
+                        VitalAssess, IV/209, Erattayaar<br />
+                        Idukki, Kerala -685514
                       </address>
                     </div>
                   </div>

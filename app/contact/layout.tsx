@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Contact Us - Get in Touch',
-  description: 'Contact VitalAssess to learn how AI-powered hiring assessments can transform your recruitment process. Email: mail@vitalassess.com | Phone: 9744824525 | Kochi, Kerala.',
+  description: 'Contact VitalAssess to learn how AI-powered hiring assessments can transform your recruitment process. Email: admin@vitalassess.in | Phone: 97782 31254 | Idukki, Kerala.',
   openGraph: {
     title: 'Contact VitalAssess - Get in Touch',
     description: 'Contact VitalAssess to learn how AI-powered hiring assessments can transform your recruitment process.',

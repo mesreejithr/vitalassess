@@ -8,18 +8,18 @@ export default function StructuredData() {
     description: 'AI-powered hiring intelligence platform for candidate assessment and evaluation',
     contactPoint: {
       '@type': 'ContactPoint',
-      telephone: '+91-9744824525',
+      telephone: '+91-9778231254',
       contactType: 'Customer Service',
-      email: 'mail@vitalassess.com',
+      email: 'admin@vitalassess.in',
       areaServed: 'IN',
       availableLanguage: ['en'],
     },
     address: {
       '@type': 'PostalAddress',
-      streetAddress: '67/A, Residents Ln, Edappally',
-      addressLocality: 'Ernakulam, Kochi',
+      streetAddress: 'VitalAssess, IV/209, Erattayaar',
+      addressLocality: 'Idukki',
       addressRegion: 'Kerala',
-      postalCode: '682024',
+      postalCode: '685514',
       addressCountry: 'IN',
     },
     sameAs: [

@@ -143,7 +143,7 @@ export default function TermsOfService() {
             <p>
               If you have any questions about this Terms of Service or your dealings with our site, please{' '}
               <a href="/contact" className="text-primary hover:underline">Contact Us</a>. Write to{' '}
-              <a href="mailto:mail@vitalassess.com" className="text-primary hover:underline">mail@vitalassess.com</a>
+              <a href="mailto:admin@vitalassess.in" className="text-primary hover:underline">admin@vitalassess.in</a>
             </p>
           </div>
         </div>
