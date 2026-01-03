@@ -199,7 +199,7 @@ export default function FreeAssessment() {
                       ? 'border-red-300 focus:ring-red-500'
                       : 'border-gray-200'
                   }`}
-                  placeholder="Enter your full name"
+                  placeholder="Priya Sharma"
                   disabled={isSubmitting}
                 />
                 {errors.name && (
@@ -222,7 +222,7 @@ export default function FreeAssessment() {
                       ? 'border-red-300 focus:ring-red-500'
                       : 'border-gray-200'
                   }`}
-                  placeholder="your.email@example.com"
+                  placeholder="priya@example.com"
                   disabled={isSubmitting}
                 />
                 {errors.email && (
@@ -245,7 +245,7 @@ export default function FreeAssessment() {
                       ? 'border-red-300 focus:ring-red-500'
                       : 'border-gray-200'
                   }`}
-                  placeholder="+91 9876543210"
+                  placeholder="+91 1234567890"
                   disabled={isSubmitting}
                 />
                 {errors.mobile && (

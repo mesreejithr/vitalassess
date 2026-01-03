@@ -155,7 +155,7 @@ export default function Contact() {
                           ? 'border-red-300 focus:ring-red-500'
                           : 'border-gray-200'
                       }`}
-                      placeholder="John Doe"
+                      placeholder="Rajesh Kumar"
                     />
                     {errors.name && (
                       <p className="mt-1 text-sm text-red-600">{errors.name}</p>
@@ -177,7 +177,7 @@ export default function Contact() {
                           ? 'border-red-300 focus:ring-red-500'
                           : 'border-gray-200'
                       }`}
-                      placeholder="john@company.com"
+                      placeholder="rajesh@company.in"
                     />
                     {errors.email && (
                       <p className="mt-1 text-sm text-red-600">{errors.email}</p>

@@ -133,7 +133,7 @@ export default function Login() {
                       ? 'border-red-300 focus:ring-red-500'
                       : 'border-gray-200'
                   }`}
-                  placeholder="you@company.com"
+                  placeholder="amit@company.in"
                   autoComplete="email"
                 />
                 {errors.email && (
